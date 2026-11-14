@@ -36,6 +36,7 @@ body{margin:0;font-family:'Noto Sans KR',sans-serif;background:#070B14}
 .glass{position:relative;overflow:hidden}.glass::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent);transform:skewX(-20deg);animation:sh 6s infinite;pointer-events:none}
 .grad{background-image:linear-gradient(110deg,#00E5C3,#7B5CFF,#FF4FD8,#7B5CFF,#00E5C3);background-size:200% 100%;animation:gs 4s linear infinite}
 .rv{opacity:0}.rv.in{opacity:1;animation:up .8s cubic-bezier(.2,.7,.2,1) backwards}
+@media(min-width:768px){.th .px-6,#sp .px-6{padding-left:max(3.5rem,calc((100% - 1280px)/2));padding-right:max(3.5rem,calc((100% - 1280px)/2))}#tB .relative.grid{max-width:1280px;margin-inline:auto}#tC .bottom-52{right:max(4rem,calc((100% - 1280px)/2 + 2rem))}}
 </style>
 </head>
 <body>
@@ -148,8 +149,8 @@ body{margin:0;font-family:'Noto Sans KR',sans-serif;background:#070B14}
   <div class="absolute bottom-52 right-8 md:right-16 sf text-right u d3"><p class="text-6xl md:text-7xl font-black" style="color:#C0623B"><span data-c="99.9" data-d="1">0</span>%</p><p class="text-xs mt-1">계측 데이터 신뢰도</p></div>
  </section>
  <section class="py-20" style="background:#1E2A24;color:#EFE6D8">
-  <div class="px-6 md:px-14 mb-10 flex justify-between items-end"><h2 class="sf text-3xl md:text-5xl font-black">사업분야 <span style="color:#D9B26F">Collection</span></h2><span class="text-xs opacity-60">← 가로로 스크롤 →</span></div>
-  <div id="gC" class="hs flex gap-5 overflow-x-auto px-6 md:px-14 pb-6 snap-x"></div>
+  <div class="px-6 md:px-14 mb-10 flex justify-between items-end"><h2 class="sf text-3xl md:text-5xl font-black">사업분야 <span style="color:#D9B26F">Collection</span></h2></div>
+  <div id="gC" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 px-6 md:px-14 pb-6"></div>
  </section>
 </div>
 
@@ -183,7 +184,7 @@ $('#gA').innerHTML=S.map((s,i)=>{const big=i==0||i==5;return `<div class="card g
 $('#gB').innerHTML=S.map((s,i)=>`<div class="group flex items-center justify-between border-b-2 border-black py-5 px-2 cursor-pointer transition-all duration-300 hover:px-8 hover:bg-black hover:text-[#F2EFE6]"><span class="sp font-bold text-sm w-10">0${i+1}</span><div class="w-20 md:w-28 mr-4 shrink-0 transition group-hover:scale-110">${ico(i,'currentColor','#FF4D1A')}</div><span class="text-2xl md:text-4xl font-black flex-1">${s[0]}</span><span class="sp hidden md:block text-sm">${s[1]}</span><span class="text-2xl ml-6 transition group-hover:rotate-45">↗</span></div>`).join('');
 // C cards
 const cc=['#C0623B','#D9B26F','#7A8B6F','#E8DCC6'];
-$('#gC').innerHTML=S.map((s,i)=>`<div class="card snap-start shrink-0 w-64 h-80 rounded-[2rem] p-6 flex flex-col justify-between" style="background:${cc[i%4]};color:${i%4==3||i%4==1?'#1E2A24':'#fff'}"><div class="w-40 -mt-1">${ico(i,'currentColor',i%4==0?'#1E2A24':i%4==2?'#D9B26F':'#C0623B')}</div><svg viewBox="0 0 100 50" class="hidden"><path d="M0 ${25+i*2} ${[...Array(10)].map((_,k)=>`Q${k*10+5} ${(k%2?8:42)-i} ${k*10+10} 25`).join(' ')}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 3" style="animation:dash 5s linear infinite"/></svg><div><p class="sf text-xs opacity-70">N°0${i+1}</p><p class="sf text-2xl font-black mt-1">${s[0]}</p><p class="text-xs opacity-70 mt-1">${s[1]}</p></div></div>`).join('');
+$('#gC').innerHTML=S.map((s,i)=>`<div class="card min-h-[280px] md:min-h-[320px] rounded-[2rem] p-5 md:p-6 flex flex-col justify-between md:even:mt-10" style="background:${cc[i%4]};color:${i%4==3||i%4==1?'#1E2A24':'#fff'}"><div class="w-28 md:w-40 -mt-1">${ico(i,'currentColor',i%4==0?'#1E2A24':i%4==2?'#D9B26F':'#C0623B')}</div><svg viewBox="0 0 100 50" class="hidden"><path d="M0 ${25+i*2} ${[...Array(10)].map((_,k)=>`Q${k*10+5} ${(k%2?8:42)-i} ${k*10+10} 25`).join(' ')}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 3" style="animation:dash 5s linear infinite"/></svg><div><p class="sf text-xs opacity-70">N°0${i+1}</p><p class="sf text-2xl font-black mt-1">${s[0]}</p><p class="text-xs opacity-70 mt-1">${s[1]}</p></div></div>`).join('');
 // counters
 function count(root){$$('#'+root+' [data-c]').forEach(e=>{const t=+e.dataset.c,d=+e.dataset.d||0,t0=performance.now();(function f(n){const p=Math.min((n-t0)/1800,1);e.textContent=(t*(1-Math.pow(1-p,3))).toFixed(d);if(p<1)requestAnimationFrame(f)})(t0)})}
 // switch
